@@ -71,23 +71,24 @@ public class Amino_Acid_Quiz
 			
 		  
 		//Should only execute if user entered "yes" to the above question.
-/*			long startquiz = System.currentTimeMillis();
-			long quizwait = 30000;
-			long endquiz = startquiz+quizwait;
+			long startquiz = System.currentTimeMillis();
+			long endquiz = startquiz+30000;
 			
-			while(System.currentTimeMillis() < endquiz);
+			while(System.currentTimeMillis() < endquiz)
 			{
-*/				int correct = 0;
+				int correct = 0;
 				int incorrect = 0;
 				
-				for( int a=0; a<1; a++ )
+				for( int a=0; a<2; a++ )
 				{
-					float f = RANDOM.nextFloat();
-					float sum = 0.0f;		
+					float x, sum;
+					x = RANDOM.nextFloat();
+					sum = 0.0f;		
 					for( int b=0; b<SHORT_NAMES.length; b++ )
 					{
 						sum+=FREQUENCY[b];	
-						if( f<=sum )
+						
+						if( x<=sum )
 						{
 							String answer = "";
 							answer = JOptionPane.showInputDialog("What is the single letter code for: "+FULL_NAMES[b]+"?");		
@@ -109,6 +110,7 @@ public class Amino_Acid_Quiz
 				}
 				int score = (correct/(correct+incorrect)*100);
 				JOptionPane.showMessageDialog(null,"Your score is:"+score+"%");
-			//}
+				System.exit(0);
+			}
 		}
 }
