@@ -1,9 +1,19 @@
-package lab3b;
-import javax.swing.*;	//Trying to make a pop-up window for the quiz.
+import javax.swing.*;
+import java.awt.*;
 import java.util.*;
+import java.text.DecimalFormat;
 
-public class Amino_Acid_Quiz
+public class Amino_Acid_Quiz extends JFrame
 {
+	private void display() {
+        this.setTitle("Amino Acid Quiz");
+        this.setLayout(new GridLayout(0, 1));
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.pack();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+    }
+	
 	private static final Random RANDOM = new Random();
 	
 	public static final String SHORT_NAMES[] = 
@@ -32,7 +42,7 @@ public class Amino_Acid_Quiz
 			0.05f, 0.05f, 0.05f, 0.05f, 0.05f
 		};
 	 
-	public static void main(String[] args)   //Robert suggested using a hash table to store the names as keys and the codes as values.
+	public static void main(String[] args)   
 		{
 			HashMap <String, String> aminoacid_Hash = new HashMap <String, String>();
 			
@@ -55,30 +65,19 @@ public class Amino_Acid_Quiz
 */			
 		//Begin user dialog box. 	
 			
-			String begin_quest_ansr = "";
-			begin_quest_ansr = JOptionPane.showInputDialog("This is a 30 second test to determine the number of amino acid codes you know."+"\n"+"\n"+"Are you ready to begin?"+"\n"+"(Please enter yes or no)");
-		// JOptionPane.showConfirmDialog might be a better choice here. Not sure yet.	
+			String begin_quest_ansr = "This is a 30 second test to determine the number of amino acid codes you know."+"\n"+"\n"+"Are you ready to begin?"+"\n"+"(Please enter yes or no)";
 			
-			if (begin_quest_ansr.equalsIgnoreCase("yes")) {
+			int reply = JOptionPane.showConfirmDialog(null,begin_quest_ansr, "Choose One", JOptionPane.YES_NO_OPTION);
+			
+			if (reply == JOptionPane.YES_OPTION){
 					;
-				} else if (begin_quest_ansr.equalsIgnoreCase("no")) {
+				} else if (reply == JOptionPane.NO_OPTION){
 					JOptionPane.showMessageDialog(null,"Ok, please try again later."); 
 					System.exit(0);
-				} else {
-					JOptionPane.showMessageDialog(null,"It was a yes or no question."+"\n"+"It's not that hard."+"\n"+"Please restart program until I can figure out how to restart this "+"\n"+"stupid loop because you can't answer a simple question. /endrant");
-					System.exit(0);	
 				} 
 			
-		  
-		//Should only execute if user entered "yes" to the above question.
-/*			long startquiz = System.currentTimeMillis();
-			long quizwait = 30000;
-			long endquiz = startquiz+quizwait;
-			
-			while(System.currentTimeMillis() < endquiz);
-			{
-*/				int correct = 0;
-				int incorrect = 0;
+				double correct = 0;
+				double incorrect = 0;
 				
 				for( int a=0; a<1; a++ )
 				{
@@ -96,7 +95,7 @@ public class Amino_Acid_Quiz
 							if( FULL_NAMES[b].equals(aminoacid_Hash.get(answer_upper)))
 							{
 								JOptionPane.showMessageDialog(null, "That is correct!");
-								correct++;
+								correct++;		
 							}
 							else
 							{
@@ -105,10 +104,10 @@ public class Amino_Acid_Quiz
 							}
 						}
 					}
-
+					double score = (correct/(correct+incorrect)*100);
+					DecimalFormat df = new DecimalFormat("#.00");
+					String roundedscore = df.format(score);
+					JOptionPane.showMessageDialog(null,"Your score is: "+roundedscore+"%");				
 				}
-				int score = (correct/(correct+incorrect)*100);
-				JOptionPane.showMessageDialog(null,"Your score is:"+score+"%");
-			//}
 		}
 }
